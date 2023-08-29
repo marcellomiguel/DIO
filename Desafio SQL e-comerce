@@ -1,0 +1,44 @@
+-- Criação da tabela Clientes
+CREATE TABLE Clientes (
+    ID INT PRIMARY KEY,
+    Nome VARCHAR(100),
+    Email VARCHAR(100) UNIQUE,
+    Endereco VARCHAR(200)
+);
+
+-- Criação da tabela Produtos
+CREATE TABLE Produtos (
+    ID INT PRIMARY KEY,
+    Nome VARCHAR(200),
+    Preco DECIMAL(10, 2),
+    Estoque INT
+);
+
+-- Criação da tabela Pedidos
+CREATE TABLE Pedidos (
+    ID INT PRIMARY KEY,
+    ClienteID INT,
+    DataPedido DATE,
+    ValorTotal DECIMAL(10, 2),
+    Status VARCHAR(50),
+    FOREIGN KEY (ClienteID) REFERENCES Clientes(ID)
+);
+
+-- Inserção de dados de exemplo na tabela Clientes
+INSERT INTO Clientes (ID, Nome, Email, Endereco)
+VALUES
+    (1, 'João Silva', 'joao@example.com', 'Rua A, 123'),
+    (2, 'Maria Santos', 'maria@example.com', 'Avenida B, 456');
+
+-- Inserção de dados de exemplo na tabela Produtos
+INSERT INTO Produtos (ID, Nome, Preco, Estoque)
+VALUES
+    (1, 'Camiseta', 29.99, 50),
+    (2, 'Calça Jeans', 59.99, 30),
+    (3, 'Tênis', 79.99, 20);
+
+-- Inserção de dados de exemplo na tabela Pedidos
+INSERT INTO Pedidos (ID, ClienteID, DataPedido, ValorTotal, Status)
+VALUES
+    (1, 1, '2023-08-29', 89.98, 'Processando'),
+    (2, 2, '2023-08-30', 139.98, 'Entregue');
