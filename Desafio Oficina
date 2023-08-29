@@ -1,0 +1,55 @@
+-- Criação da base de dados
+CREATE DATABASE OficinaDB;
+
+-- Usar a base de dados criada
+USE OficinaDB;
+
+-- Tabela de Clientes
+CREATE TABLE Clientes (
+    ClienteID INT PRIMARY KEY,
+    Nome VARCHAR(100) NOT NULL,
+    Telefone VARCHAR(15),
+    Email VARCHAR(100)
+);
+
+-- Tabela de Veículos
+CREATE TABLE Veiculos (
+    VeiculoID INT PRIMARY KEY,
+    ClienteID INT,
+    Marca VARCHAR(50) NOT NULL,
+    Modelo VARCHAR(50) NOT NULL,
+    Ano INT,
+    Placa VARCHAR(10) UNIQUE,
+    FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID)
+);
+
+-- Tabela de Serviços
+CREATE TABLE Servicos (
+    ServicoID INT PRIMARY KEY,
+    Descricao VARCHAR(200) NOT NULL,
+    Preco DECIMAL(10, 2) NOT NULL
+);
+
+-- Tabela de Funcionários
+CREATE TABLE Funcionarios (
+    FuncionarioID INT PRIMARY KEY,
+    Nome VARCHAR(100) NOT NULL,
+    Cargo VARCHAR(50),
+    Salario DECIMAL(10, 2)
+);
+
+-- Tabela de Ordem de Serviço
+CREATE TABLE OrdensDeServico (
+    OrdemID INT PRIMARY KEY,
+    ClienteID INT,
+    VeiculoID INT,
+    FuncionarioID INT,
+    DataEntrada DATE,
+    DataConclusao DATE,
+    DescricaoServico TEXT,
+    ValorTotal DECIMAL(10, 2),
+    Status VARCHAR(20),
+    FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID),
+    FOREIGN KEY (VeiculoID) REFERENCES Veiculos(VeiculoID),
+    FOREIGN KEY (FuncionarioID) REFERENCES Funcionarios(FuncionarioID)
+);
